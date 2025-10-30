@@ -16,12 +16,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Universidad API",
         Version = "v1",
-        Description = "API para gestión universitaria - Facultades, Carreras y Cursos",
-        Contact = new Microsoft.OpenApi.Models.OpenApiContact
-        {
-            Name = "Desarrollo",
-            Email = "dev@universidad.edu"
-        }
+        Description = "API para gestión universitaria"
     });
 });
 
@@ -33,8 +28,8 @@ builder.Services.AddDbContext<UniversidadDbContext>(options =>
 builder.Services.AddScoped<IFacultadRepository, FacultadRepository>();
 builder.Services.AddScoped<IFacultadService, FacultadService>();
 
-// AutoMapper
-builder.Services.AddAutoMapper(typeof(Program));
+// AutoMapper - CORREGIR ESTA LÍNEA
+builder.Services.AddAutoMapper(typeof(Universidad.Application.Mappings.FacultadProfile));
 
 var app = builder.Build();
 
@@ -45,7 +40,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Universidad API v1");
-        c.RoutePrefix = "swagger"; // Para acceder en /swagger
+        c.RoutePrefix = "swagger";
     });
 }
 
@@ -53,24 +48,20 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-// Al final de Program.cs, antes de app.Run();
+// Data seeding
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
         var context = services.GetRequiredService<UniversidadDbContext>();
-        // Aplicar migraciones automáticamente
-        context.Database.Migrate();
-        // Insertar datos de prueba
-        SeedData.Initialize(context);
+        // Los datos ya fueron insertados por la migración
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Ocurrió un error al inicializar la base de datos.");
+        logger.LogError(ex, "Error durante la inicialización de la base de datos.");
     }
 }
-
 
 app.Run();
