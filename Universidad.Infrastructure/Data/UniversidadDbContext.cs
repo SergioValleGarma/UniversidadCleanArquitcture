@@ -1,13 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Universidad.Infrastructure/Data/UniversidadDbContext.cs
+using Microsoft.EntityFrameworkCore;
+using Universidad.Domain.Common;
 using Universidad.Domain.Entities;
-using static System.Collections.Specialized.BitVector32;
+using Universidad.Domain.Events;
 
-// Universidad.Infrastructure/Data/UniversidadDbContext.cs
 namespace Universidad.Infrastructure.Data;
 
 public class UniversidadDbContext : DbContext
@@ -22,6 +18,23 @@ public class UniversidadDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
+        // Ignorar eventos de dominio para que EF Core no intente mapearlos
+        modelBuilder.Ignore<DomainEventBase>();
+        modelBuilder.Ignore<FacultadCreadaEvent>();
+        modelBuilder.Ignore<CarreraCreadaEvent>();
+        modelBuilder.Ignore<CursoCreadoEvent>();
+        modelBuilder.Ignore<SeccionCreadaEvent>();
+
+        // Aplicar configuraciones de entidades
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(UniversidadDbContext).Assembly);
+    }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        // Aquí podrías publicar eventos de dominio antes de guardar
+        // Por ahora solo guardamos los cambios
+        return await base.SaveChangesAsync(cancellationToken);
     }
 }

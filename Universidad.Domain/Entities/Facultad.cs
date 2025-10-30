@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Universidad.Domain.Common;
+using Universidad.Domain.Events;
 
 // Universidad.Domain/Entities/Facultad.cs
 namespace Universidad.Domain.Entities;

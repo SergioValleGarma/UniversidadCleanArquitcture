@@ -1,6 +1,8 @@
 ﻿// Universidad.API/Endpoints/FacultadEndpoints.cs
 using Universidad.Application.DTOs.Commands;
+using Universidad.Application.Interfaces.Services;
 using Universidad.Application.Services;
+using Universidad.Domain.Exceptions;
 
 namespace Universidad.API.Endpoints;
 

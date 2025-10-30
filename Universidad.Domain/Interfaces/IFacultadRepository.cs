@@ -17,4 +17,5 @@ public interface IFacultadRepository
     Task AddAsync(Facultad facultad);
     void Update(Facultad facultad);
     void Remove(Facultad facultad);
+    Task SaveChangesAsync();
 }
