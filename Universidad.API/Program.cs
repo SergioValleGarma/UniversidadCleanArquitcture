@@ -26,7 +26,9 @@ builder.Services.AddDbContext<UniversidadDbContext>(options =>
 
 // Dependency Injection
 builder.Services.AddScoped<IFacultadRepository, FacultadRepository>();
+builder.Services.AddScoped<ICarreraRepository, CarreraRepository>(); // NUEVA
 builder.Services.AddScoped<IFacultadService, FacultadService>();
+builder.Services.AddScoped<ICarreraService, CarreraService>(); // NUEVA
 
 // AutoMapper - CORREGIR ESTA LÍNEA
 builder.Services.AddAutoMapper(typeof(Universidad.Application.Mappings.FacultadProfile));
