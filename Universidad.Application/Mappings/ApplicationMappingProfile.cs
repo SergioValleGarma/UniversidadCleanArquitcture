@@ -16,7 +16,9 @@ public class ApplicationMappingProfile : Profile
             .ForMember(dest => dest.FacultadNombre, opt => opt.Ignore()); // Se llenará manualmente
 
         // Curso mappings
-        //CreateMap<Curso, CursoResponse>()
-        //    .ForMember(dest => dest.CarreraNombre, opt => opt.Ignore()); // Se llenará manualmente
+        CreateMap<Curso, CursoResponse>()
+            .ForMember(dest => dest.CarreraNombre, opt => opt.Ignore())
+            .ForMember(dest => dest.Codigo, opt => opt.MapFrom(src => src.Codigo.Value)) // Mapear solo el valor
+            .ForMember(dest => dest.Creditos, opt => opt.MapFrom(src => src.Creditos.Value)); // Mapear solo el valor
     }
 }

@@ -51,4 +51,9 @@ public class Curso : EntityBase
 
     public void Desactivar() => Activo = false;
     public void Activar() => Activo = true;
+
+    public void ActualizarCodigo(CodigoCurso nuevoCodigo)
+    {
+        Codigo = nuevoCodigo;
+    }
 }

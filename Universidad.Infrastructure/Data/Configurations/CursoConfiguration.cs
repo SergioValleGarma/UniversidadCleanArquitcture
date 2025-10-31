@@ -19,8 +19,8 @@ public class CursoConfiguration : IEntityTypeConfiguration<Curso>
         // Value Objects conversion
         builder.Property(c => c.Codigo)
             .HasConversion(
-                codigo => codigo.Value,
-                value => CodigoCurso.Create(value))
+                codigo => codigo.Value,           // Convertir a string para la BD
+                value => CodigoCurso.Create(value)) // Convertir de string a Value Object
             .IsRequired()
             .HasMaxLength(20);
 
