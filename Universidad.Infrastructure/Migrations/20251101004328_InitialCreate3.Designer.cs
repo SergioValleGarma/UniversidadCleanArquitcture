@@ -12,8 +12,8 @@ using Universidad.Infrastructure.Data;
 namespace Universidad.Infrastructure.Migrations
 {
     [DbContext(typeof(UniversidadDbContext))]
-    [Migration("20251031150528_FixCursoConfiguration")]
-    partial class FixCursoConfiguration
+    [Migration("20251101004328_InitialCreate3")]
+    partial class InitialCreate3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
